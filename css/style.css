@@ -2,29 +2,3 @@
 html * { /*I like this font*/
 	font-family: 'Roboto', sans-serif;
 }
-body {
-	padding-top: 70px;
-}
-.col-xs-5 {
-	background-color: #eee;	
-	border-right: 1px solid #999;
-}
-.col-xs-5 img {
-	max-width: 100%;
-}
-.col-xs-2 {
-	background-color: #eee;	
-	border-right: 1px solid #999;
-}
-.col-xs-2 img {
-	max-width: 100%;
-}
-.navbar {
-	color: #31659C;
-}
-.navbar-brand {
-	color: white;
-}
-#footer {
-	margin-top: 3em;
-}
