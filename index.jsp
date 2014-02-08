@@ -22,9 +22,11 @@
 	<![endif]-->
 </head>
 <body>
-	<h1>Hello World</h1>
-	<p>Test</p>
-
+	<ul>
+	<% for (int i = 0; i < 5; i++) { %>
+			<li>Item # <%= i %></li>
+	<% } %>
+	</ul>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
