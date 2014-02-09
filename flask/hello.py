@@ -14,7 +14,7 @@ def dicks():
     GPIO.setup(21, GPIO.IN)
     GPIO.setup(22, GPIO.OUT)
     global pinout_state
-    if pinout_state is None:
+    if pinout_state == None:
         pinout_state = False
 
 
