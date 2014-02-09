@@ -45,7 +45,7 @@ def sense(threshold):
         pinout_state = True
     else:
         pinout_state = False
-        GPIO.output(22, pinout_state)
+    GPIO.output(22, pinout_state)
     return "Threshold was " + str(threshold) + ". Level detected was " + str(level) + "."
 
 # @app.route("/sense", methods=['GET', 'POST']) #Light-dependent
