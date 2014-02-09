@@ -40,6 +40,7 @@ def timer(seconds):
     changePin()
     return "Pin " + str(pin) + " changed"
 def changePin():
+    pinout_state=False
     dicks()
     pinout_state = not pinout_state
     GPIO.output(22, pinout_state)
