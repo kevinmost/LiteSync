@@ -5,8 +5,6 @@ import time
 import RPi.GPIO as GPIO
 app = Flask(__name__)
 
-pinout_state = False
-
 def pinout_init():
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(17, GPIO.IN)
@@ -14,6 +12,9 @@ def pinout_init():
     GPIO.setup(21, GPIO.IN)
     GPIO.setup(22, GPIO.OUT)
     global pinout_state
+    if pinout_state is None:
+        pinout_state = False
+
 
 @app.route("/")
 def hello():
