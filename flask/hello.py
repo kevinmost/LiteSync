@@ -17,6 +17,15 @@ def hello():
    # return render_template('main.html', **templateData)
    return "dicks"
 
+@app.route("/readPin")
+def readPin():
+   pinStatuses = ""
+   try:
+      for i in range(1,26):
+         GPIO.setup(i, GPIO.IN)
+         pinStatuses += "Pin " + str(i) + " is " + str(GPIO.input(pin)) + "\n"
+   return pinStatuses
+
 @app.route("/readPin/<int:pin>")
 def readPin(pin):
    try:
