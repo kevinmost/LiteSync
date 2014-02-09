@@ -6,10 +6,10 @@ import RPi.GPIO as GPIO
 app = Flask(__name__)
 
 GPIO.setmode(GPIO.BCM)
-GPIO.set(12, GPIO.IN)
-GPIO.set(16, GPIO.IN)
-GPIO.set(18, GPIO.IN)
-GPIO.set(19, GPIO.OUT)
+GPIO.setup(12, GPIO.IN)
+GPIO.setup(16, GPIO.IN)
+GPIO.setup(18, GPIO.IN)
+GPIO.setup(19, GPIO.OUT)
 
 pin_19_state=False
 
