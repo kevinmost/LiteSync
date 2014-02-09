@@ -1,5 +1,6 @@
 <html lang="en">
 	<head>
+		<meta http-equiv="refresh" content="5">
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,13 +27,7 @@
 	</head>
 
 	<body style="text-align:center">
-		<h1>Please enter a time-delay</h1>
-
-
-		<form action="{{pinURL}}" method="POST">
-			<h2>Time: <input type="text" name="time" /></h2>
-			<input type="submit" value="change" />
-		</form>
+		<h1>Light status: {{pinoutState}}</h1>
 
 			<!-- Bootstrap core JavaScript
 		================================================== -->

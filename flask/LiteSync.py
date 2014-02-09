@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import datetime
 import traceback
 import time
@@ -17,43 +17,35 @@ def pinout_init():
 
 @app.route("/")
 def hello():
-    now = datetime.datetime.now()
-    timeString = now.strftime("%Y-%m-%d %H:%M")
     templateData = {
-        'title' : 'HELLO!',
-        'time': timeString
+        'timeDependentURL' : '/'
     }
     # return render_template('main.html', **templateData)
-    return "LiteSync"
+    return render_template('mainMenu.html', **templateData)
 
-@app.route("/thresholdLoop/<int:threshold>")
-def thresholdLoop(threshold):
+@app.route("/timer", methods=['GET', 'POST']) #Time-dependent
+def timer():
     pinout_init()
-    while(True):
-        sense(threshold)
-
-@app.route("/timer/<int:seconds>")
-def timer(seconds):
-    pinout_init()
-    time.sleep(seconds)
+    time.sleep(float(request.form['time']))
     changePin()
-    return "Pin 22 changed"
+    return "Pin changed"
 
 def changePin():
     pinout_init()
     pinout_state = not pinout_state
     GPIO.output(22, pinout_state)
 
-@app.route("/sense/<int:threshold>")
-def sense(threshold):
+@app.route("/sense", methods=['GET', 'POST']) #Light-dependent
+def sense():
     pinout_init()
+    threshold = int(request.form['threshold'])
     level = GPIO.input(17) + (2 * GPIO.input(18)) + (4 * GPIO.input(21))
     if (level > threshold and threshold <= 7 and threshold >= 0):
         pinout_state = True
     else:
         pinout_state = False
     GPIO.output(22, pinout_state)
-    return "Threshold was " + str(threshold) + ". Level detected was " + str(level) + "."
+    return render_template('pinStatus.html', pinout_state)
 
 @app.route("/readPin")
 def readPin():

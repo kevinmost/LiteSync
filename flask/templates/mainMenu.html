@@ -26,10 +26,14 @@
 	</head>
 
 	<body style="text-align:center">
-		<h1>Please enter a time-delay</h1>
+		<h1>Please select a mode.</h1>
 
+		<form action="/sense" method="POST">
+			<h2>Threshold: <input type="text" name="threshold" /></h2>
+			<input type="submit" value="change" />
+		</form>
 
-		<form action="{{pinURL}}" method="POST">
+		<form action="/timer" method="POST">
 			<h2>Time: <input type="text" name="time" /></h2>
 			<input type="submit" value="change" />
 		</form>
