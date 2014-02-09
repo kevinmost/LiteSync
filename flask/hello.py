@@ -5,7 +5,7 @@ import time
 import RPi.GPIO as GPIO
 app = Flask(__name__)
 
-global pinout_stat = False
+pinout_state = False
 
 def dicks():
     GPIO.setmode(GPIO.BCM)
@@ -40,18 +40,18 @@ def timer(seconds):
     return "Pin " + str(pin) + " changed"
 def changePin():
     dicks()
-    pinout_stat = not pinout_stat
-    GPIO.output(22, pinout_stat)
+    global pinout_state = not global pinout_state
+    GPIO.output(22, global pinout_state)
 
 @app.route("/sense/<int:threshold>")
 def sense(threshold):
     dicks()
     level = GPIO.input(12) + (2 * GPIO.input(16)) + (4 * GPIO.input(18))
     if (level > threshold and threshold <= 7 and threshold >= 0):
-        pinout_stat = True
+        global pinout_state = True
     else:
-        pinout_stat = False
-    GPIO.output(22, pinout_stat)
+        global pinout_state = False
+    GPIO.output(22, global pinout_state)
     return "Threshold was " + str(threshold) + ". Level detected was " + str(level) + "."
 
 @app.route("/readPin")
