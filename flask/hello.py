@@ -57,9 +57,8 @@ def changePinStatus(pin):
 
 @app.route("/readPin/<int:pin>")
 def readPin():
-    try:
-        GPIO.setup(pin, GPIO.IN)
-        return int(GPIO.input(pin))
+    GPIO.setup(pin, GPIO.IN)
+    return int(GPIO.input(pin))
 
 @app.route("/readPinDebug/all")
 def readPinAllDebug():
