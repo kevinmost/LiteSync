@@ -6,7 +6,14 @@ import RPi.GPIO as GPIO
 app = Flask(__name__)
 
 
-pin_19_state=False
+pin_22_state=False
+
+def dicks():
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(17, GPIO.IN)
+    GPIO.setup(18, GPIO.IN)
+    GPIO.setup(21, GPIO.IN)
+    GPIO.setup(22, GPIO.OUT)
 
 @app.route("/")
 def hello():
@@ -21,36 +28,36 @@ def hello():
 
 @app.route("/thresholdLoop/<int:threshold>")
 def thresholdLoop(thresholdLoop):
+    dicks()
     while(True):
         sense(threshold)
 
 @app.route("/timer/<int:seconds>")
 def timer(seconds):
+    dicks()
     time.sleep(seconds)
     changePin()
     return "Pin " + str(pin) + " changed"
 def changePin():
-    pin_19_state = not pin_19_state
-    GPIO.output(19, pin_19_state)
+    dicks()
+    pin_22_state = not pin_22_state
+    GPIO.output(22, pin_22_state)
 
 @app.route("/sense/<int:threshold>")
 def sense(threshold):
+    dicks()
     level = GPIO.input(12) + (2 * GPIO.input(16)) + (4 * GPIO.input(18))
     if (level > threshold and threshold <= 7 and threshold >= 0):
-        pin_19_state = True
+        pin_22_state = True
     else:
-        pin_19_state = False
-    GPIO.output(19, pin_19_state)
+        pin_22_state = False
+    GPIO.output(22, pin_22_state)
     return "Threshold was " + str(threshold) + ". Level detected was " + str(level) + "."
 
 @app.route("/readPin")
 def readPin():
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(17, GPIO.IN)
-    GPIO.setup(18, GPIO.IN)
-    GPIO.setup(21, GPIO.IN)
-    GPIO.setup(19, GPIO.OUT)
-    return "Pin 12: " + str(GPIO.input(17)) + ". Pin 16: " + str(GPIO.input(18)) + ". Pin 18: " + str(GPIO.input(21))
+    dicks()
+    return "Pin 17: " + str(GPIO.input(17)) + ". Pin 18: " + str(GPIO.input(18)) + ". Pin 21: " + str(GPIO.input(21))
 
     # templateData = {
     #     'title' : 'Status of Pin ' + str(pin),
