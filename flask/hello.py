@@ -29,10 +29,9 @@ def sense(threshold):
     GPIO.setup(19, GPIO.OUT)
     if (level > threshold and threshold <= 7 and threshold >= 0):
         GPIO.output(19, True)
-        return "Threshold was " + str(threshold) + ". Level detected was " + str(level) + "."
     else:
         GPIO.output(19, False)
-        return "No stop pls"
+    return "Threshold was " + str(threshold) + ". Level detected was " + str(level) + "."
 
 @app.route("/changePinStatus/<int:pin>", methods=['GET', 'POST'])
 def changePinStatus(pin):
