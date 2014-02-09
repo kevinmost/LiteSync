@@ -5,8 +5,7 @@ import time
 import RPi.GPIO as GPIO
 app = Flask(__name__)
 
-
-pin_22_state=False
+global pin_22_state=False
 
 def dicks():
     GPIO.setmode(GPIO.BCM)
@@ -14,6 +13,7 @@ def dicks():
     GPIO.setup(18, GPIO.IN)
     GPIO.setup(21, GPIO.IN)
     GPIO.setup(22, GPIO.OUT)
+
 
 @app.route("/")
 def hello():
