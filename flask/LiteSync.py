@@ -36,20 +36,32 @@ def changePin():
     pinout_state = not pinout_state
     GPIO.output(22, pinout_state)
 
-@app.route("/sense", methods=['GET', 'POST']) #Light-dependent
-def sense():
-    pinout_init()
-    threshold = int(request.args.get('threshold'))
-    level = GPIO.input(17) + (2 * GPIO.input(18)) + (4 * GPIO.input(21))
-    if (level > threshold and threshold <= 7 and threshold >= 0):
-        pinout_state = True
-    else:
-        pinout_state = False
-    GPIO.output(22, pinout_state)
-    templateData = {
-        'pinout_state': pinout_state
-    }
-    return render_template('pinStatus.html', **templateData)
+ @app.route("/sense/<int:threshold>")
+
+ def sense(threshold):
+     pinout_init()
+     level = GPIO.input(17) + (2 * GPIO.input(18)) + (4 * GPIO.input(21))
+     if (level > threshold and threshold <= 7 and threshold >= 0):
+         pinout_state = True
+     else:
+         pinout_state = False
+     GPIO.output(22, pinout_state)
+     return "Threshold was " + str(threshold) + ". Level detected was " + str(level) + "."
+
+# @app.route("/sense", methods=['GET', 'POST']) #Light-dependent
+# def sense():
+#     pinout_init()
+#     threshold = int(request.args.get('threshold'))
+#     level = GPIO.input(17) + (2 * GPIO.input(18)) + (4 * GPIO.input(21))
+#     if (level > threshold and threshold <= 7 and threshold >= 0):
+#         pinout_state = True
+#     else:
+#         pinout_state = False
+#     GPIO.output(22, pinout_state)
+#     templateData = {
+#         'pinout_state': pinout_state
+#     }
+#     return render_template('pinStatus.html', **templateData)
 
 @app.route("/readPin")
 def readPin():
