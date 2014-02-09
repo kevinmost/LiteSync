@@ -30,7 +30,10 @@
 
 		<p>Pin {{ pin }}'s status is {{ response }}</p>
 
-		
+		<form action="/changePinStatus/{{ pin }}" method="POST">
+			<input type="submit" value="change" />
+		</form>
+
 			<!-- Bootstrap core JavaScript
 		================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
