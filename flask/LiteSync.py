@@ -45,7 +45,10 @@ def sense():
     else:
         pinout_state = False
     GPIO.output(22, pinout_state)
-    return render_template('pinStatus.html', pinout_state)
+    templateData = {
+        'pinout_state': pinout_state
+    }
+    return render_template('pinStatus.html', **templateData)
 
 @app.route("/readPin")
 def readPin():
