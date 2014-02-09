@@ -46,7 +46,7 @@ def changePin():
 @app.route("/sense/<int:threshold>")
 def sense(threshold):
     dicks()
-    level = GPIO.input(17) + (2 * GPIO.input(18)) + (4 * GPIO.input(21))
+    level = GPIO.input(21) + (2 * GPIO.input(18)) + (4 * GPIO.input(17))
     if (level > threshold and threshold <= 7 and threshold >= 0):
         pinout_state = True
     else:
