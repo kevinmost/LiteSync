@@ -30,23 +30,18 @@ def readPin(pin):
    try:
       GPIO.setup(pin, GPIO.IN)
       if GPIO.input(pin) == True:
-         return "Pin " + str(pin) + " is high"
-         # response = "Pin number " + pin + " is high!"
+         response = "Pin number " + str(pin) + " is high!"
       else:
-         return "Pin " + str(pin) + " is low"
-         # response = "Pin number " + pin + " is low!"
+         response = "Pin number " + str(pin) + " is low!"
    except:
-      traceback.print_exc()
-      return "There was an error reading pin" + str(pin)
-      #response = "There was an error reading pin " + pin + "."
+         response = "There was an error reading pin " + str(pin) + "."
 
-   #templateData = {
-   #   'title' : 'Status of Pin' + pin,
-   #   'response' : response
-   #   }
+   templateData = {
+      'title' : 'Status of Pin' + pin,
+      'response' : response
+      }
 
-   #return render_template('pin.html', **templateData)
-   return 0
+   return render_template('pin.html', **templateData)
 
 if __name__ == "__main__":
    app.run(host='0.0.0.0', port=5000, debug=True)
