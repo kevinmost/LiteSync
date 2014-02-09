@@ -37,7 +37,6 @@ def changePin():
     GPIO.output(22, pinout_state)
 
  @app.route("/sense/<int:threshold>")
-
  def sense(threshold):
      pinout_init()
      level = GPIO.input(17) + (2 * GPIO.input(18)) + (4 * GPIO.input(21))
