@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import datetime
+import traceback
 import RPi.GPIO as GPIO
 app = Flask(__name__)
 
@@ -16,11 +17,9 @@ def hello():
    # return render_template('main.html', **templateData)
    return "dicks"
 
-@app.route("/readPin/<pin>")
+@app.route("/readPin/<int:pin>")
 def readPin(pin):
    try:
-      GPIO.setup(int(pin), GPIO.OUT)
-      GPIO.output(int(pin), False)
       GPIO.setup(int(pin), GPIO.IN)
       if GPIO.input(int(pin)) == True:
          return "Pin " + pin + " is high"
@@ -29,6 +28,7 @@ def readPin(pin):
          return "Pin " + pin + " is low"
          # response = "Pin number " + pin + " is low!"
    except:
+      traceback.print_exc()
       return "There was an error reading pin" + pin
       #response = "There was an error reading pin " + pin + "."
 
