@@ -26,7 +26,7 @@ def hello():
 @app.route("/timer", methods=['GET', 'POST']) #Time-dependent
 def timer():
     pinout_init()
-    time.sleep(float(request.args.get('time', '')))
+    time.sleep(float(request.args.get('time')))
     changePin()
     return "Pin changed"
 
@@ -36,10 +36,10 @@ def changePin():
     pinout_state = not pinout_state
     GPIO.output(22, pinout_state)
 
-@app.route("/sense?threshold=<threshold>", methods=['GET', 'POST']) #Light-dependent
-def sense(threshold):
-    pinout_init() 
-    #threshold = int(request.args.get('threshold', ''))
+@app.route("/sense", methods=['GET', 'POST']) #Light-dependent
+def sense():
+    pinout_init()
+    threshold = int(request.args.get('threshold'))
     level = GPIO.input(17) + (2 * GPIO.input(18)) + (4 * GPIO.input(21))
     if (level > threshold and threshold <= 7 and threshold >= 0):
         pinout_state = True
