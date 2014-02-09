@@ -23,7 +23,7 @@ def timer(seconds, pin):
     changePinStatus(pin)
     return "Pin " + str(pin) + " changed"
 
-@app.route("/changePinStatus/<int:pin>", methods=['POST'])
+@app.route("/changePinStatus/<int:pin>", methods=['GET', 'POST'])
 def changePinStatus(pin):
     try:
         GPIO.setup(pin, GPIO.IN)
