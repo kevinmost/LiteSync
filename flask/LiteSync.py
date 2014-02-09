@@ -36,7 +36,7 @@ def changePin():
     pinout_state = not pinout_state
     GPIO.output(22, pinout_state)
 
-@app.route("/sense?=<threshold>", methods=['GET', 'POST']) #Light-dependent
+@app.route("/sense?threshold=<threshold>", methods=['GET', 'POST']) #Light-dependent
 def sense(threshold):
     pinout_init() 
     #threshold = int(request.args.get('threshold', ''))
