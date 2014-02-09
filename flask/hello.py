@@ -56,7 +56,7 @@ def changePinStatus(pin):
     return render_template('pin.html', **templateData)
 
 @app.route("/readPin/<int:pin>")
-def readPin():
+def readPin(pin):
     GPIO.setup(pin, GPIO.IN)
     return int(GPIO.input(pin))
 
