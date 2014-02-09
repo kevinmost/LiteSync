@@ -27,7 +27,7 @@ def hello():
     return "LiteSync"
 
 @app.route("/thresholdLoop/<int:threshold>")
-def thresholdLoop(thresholdLoop):
+def thresholdLoop(threshold):
     dicks()
     while(True):
         sense(threshold)
