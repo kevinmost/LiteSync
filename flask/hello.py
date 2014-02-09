@@ -14,9 +14,16 @@ def hello():
     templateData = {
         'title' : 'HELLO!',
         'time': timeString
-        }
+    }
     # return render_template('main.html', **templateData)
     return "dicks"
+
+@app.route("/tresholdLoop/<int:threshold>")
+def thresholdLoop:
+
+    while():
+        sense(threshold)
+
 @app.route("/timer/<int:seconds>/<int:pin>")
 def timer(seconds, pin):
     time.sleep(seconds)
@@ -87,4 +94,4 @@ def readPinDebug(pin):
     return render_template('pin.html', **templateData)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(threaded=True, host='0.0.0.0', port=5000, debug=True)
