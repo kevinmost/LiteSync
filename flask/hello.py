@@ -65,7 +65,8 @@ def readPin(pin):
 
     templateData = {
         'title' : 'Status of Pin ' + str(pin),
-        'response' : response
+        'response' : response,
+        'pinURL' : "/changePinStatus/" + str(pin)
         }
 
     return render_template('pin.html', **templateData)
