@@ -19,7 +19,7 @@ def hello():
     return "dicks"
 
 @app.route("/tresholdLoop/<int:threshold>")
-def thresholdLoop():
+def thresholdLoop(treshold):
     while():
         sense(threshold)
 
