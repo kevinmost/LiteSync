@@ -38,7 +38,7 @@ def timer(seconds):
     dicks()
     time.sleep(seconds)
     changePin()
-    return "Pin " + str(pin) + " changed"
+    return "Pin 22 changed"
 def changePin():
     pinout_state=False
     dicks()
