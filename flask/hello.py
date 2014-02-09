@@ -19,6 +19,8 @@ def hello():
 @app.route("/readPin/<pin>")
 def readPin(pin):
    try:
+      GPIO.setup(int(pin), GPIO.OUT)
+      GPIO.output(int(pin), False)
       GPIO.setup(int(pin), GPIO.IN)
       if GPIO.input(int(pin)) == True:
          return "Pin " + pin + " is high"
