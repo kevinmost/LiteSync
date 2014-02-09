@@ -13,6 +13,7 @@ def dicks():
     GPIO.setup(18, GPIO.IN)
     GPIO.setup(21, GPIO.IN)
     GPIO.setup(22, GPIO.OUT)
+    global pinout_state
 
 
 @app.route("/")
@@ -48,9 +49,9 @@ def sense(threshold):
     dicks()
     level = GPIO.input(12) + (2 * GPIO.input(16)) + (4 * GPIO.input(18))
     if (level > threshold and threshold <= 7 and threshold >= 0):
-        global pinout_state = True
+        pinout_state = True
     else:
-        global pinout_state = False
+        pinout_state = False
     GPIO.output(22, pinout_state)
     return "Threshold was " + str(threshold) + ". Level detected was " + str(level) + "."
 
