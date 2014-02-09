@@ -5,7 +5,7 @@ import time
 import RPi.GPIO as GPIO
 app = Flask(__name__)
 
-global pin_22_state=False
+global pin_22_state = False
 
 def dicks():
     GPIO.setmode(GPIO.BCM)
