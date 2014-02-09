@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 pinout_state = False
 
-def dicks():
+def pinout_init():
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(17, GPIO.IN)
     GPIO.setup(18, GPIO.IN)
@@ -26,26 +26,36 @@ def hello():
     # return render_template('main.html', **templateData)
     return "LiteSync"
 
-@app.route("/thresholdLoop/<int:threshold>")
+@app.route("/dynamicThresh", methods = ['GET', 'POST'])
+def dynamicThresh(): 
+    templateData = {
+        'title' : 'Status of Pin ' + str(pin),
+        'response' : newResponse
+    }
+
+    return render_template('pin.html', **templateData)
+
+#@app.route("/thresholdLoop/<int:threshold>")
 def thresholdLoop(threshold):
-    dicks()
+    pinout_init()
     while(True):
         sense(threshold)
 
 @app.route("/timer/<int:seconds>")
 def timer(seconds):
-    dicks()
+    pinout_init()
     time.sleep(seconds)
     changePin()
     return "Pin 22 changed"
+
 def changePin():
-    dicks()
+    pinout_init()
     pinout_state = not pinout_state
     GPIO.output(22, pinout_state)
 
 @app.route("/sense/<int:threshold>")
 def sense(threshold):
-    dicks()
+    pinout_init()
     level = GPIO.input(17) + (2 * GPIO.input(18)) + (4 * GPIO.input(21))
     if (level > threshold and threshold <= 7 and threshold >= 0):
         pinout_state = True
@@ -56,7 +66,7 @@ def sense(threshold):
 
 @app.route("/readPin")
 def readPin():
-    dicks()
+    pinout_init()
     return "Pin 17: " + str(GPIO.input(17)) + ". Pin 18: " + str(GPIO.input(18)) + ". Pin 21: " + str(GPIO.input(21))
 
     # templateData = {
