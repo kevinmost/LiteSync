@@ -21,7 +21,7 @@ def hello():
 def timer(seconds, pin):
     time.sleep(seconds)
     changePinStatus(pin)
-    return ""
+    return "Pin " + str(pin) + " changed"
 
 @app.route("/changePinStatus/<int:pin>")
 def changePinStatus(pin):
