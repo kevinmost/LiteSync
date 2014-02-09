@@ -6,6 +6,12 @@ import RPi.GPIO as GPIO
 app = Flask(__name__)
 
 GPIO.setmode(GPIO.BCM)
+GPIO.set(12, GPIO.IN)
+GPIO.set(16, GPIO.IN)
+GPIO.set(18, GPIO.IN)
+GPIO.set(19, GPIO.OUT)
+
+pin_19_state=False
 
 @app.route("/")
 def hello():
@@ -16,81 +22,43 @@ def hello():
         'time': timeString
     }
     # return render_template('main.html', **templateData)
-    return "dicks"
+    return "LiteSync"
 
 @app.route("/tresholdLoop/<int:threshold>")
 def thresholdLoop(tresholdLoop):
     while(True):
         sense(threshold)
 
-@app.route("/timer/<int:seconds>/<int:pin>")
-def timer(seconds, pin):
+@app.route("/timer/<int:seconds>")
+def timer(seconds):
     time.sleep(seconds)
-    changePinStatus(pin)
+    changePin()
     return "Pin " + str(pin) + " changed"
+def changePin():
+    pin_19_state = not pin_19_state
+    GPIO.output(19, pin_19_state)
 
 @app.route("/sense/<int:threshold>")
 def sense(threshold):
-    level = readPin(12) + (2 * readPin(16)) + (4 * readPin(18))
-    GPIO.setup(19, GPIO.OUT)
+    level = GPIO.input(12) + (2 * GPIO.input(16)) + (4 * GPIO.input(18))
     if (level > threshold and threshold <= 7 and threshold >= 0):
-        GPIO.output(19, True)
+        pin_19_state = True
     else:
-        GPIO.output(19, False)
+        pin_19_state = False
+    GPIO.output(19, pin_19_state)
     return "Threshold was " + str(threshold) + ". Level detected was " + str(level) + "."
 
-@app.route("/changePinStatus/<int:pin>", methods=['GET', 'POST'])
-def changePinStatus(pin):
-    try:
-        GPIO.setup(pin, GPIO.IN)
-        response = GPIO.input(pin)
-        GPIO.setup(pin, GPIO.OUT)
-        if  response == True:
-            GPIO.output(pin, False)
-            newResponse = False
-        elif response == False:
-            GPIO.output(pin, True)
-            newResponse = True
-    except:
-        return "It didn't work"
+@app.route("/readPin")
+def readPin():
+    return "Pin 12: " + str(GPIO.input(12)) + ". Pin 16: " + str(GPIO.input(16)) + ". Pin 18: " + str(GPIO.input(18))
 
-    templateData = {
-        'title' : 'Status of Pin ' + str(pin),
-        'response' : newResponse
-    }
-    return render_template('pin.html', **templateData)
+    # templateData = {
+    #     'title' : 'Status of Pin ' + str(pin),
+    #     'response' : response,
+    #     'pinURL' : "/changePinStatus/" + str(pin)
+    #     }
 
-@app.route("/readPin/<int:pin>")
-def readPin(pin):
-    GPIO.setup(pin, GPIO.IN)
-    return int(GPIO.input(pin))
-
-@app.route("/readPinDebug/all")
-def readPinAllDebug():
-    pin_statuses = ""
-    for pin in range(1,26):
-        GPIO.setup(pin, GPIO.IN)
-        pin_statuses += "Pin " + str(pin) + " is " + str(GPIO.input(pin))
-    return pin_statuses
-
-@app.route("/readPinDebug/<int:pin>")
-def readPinDebug(pin):
-    try:
-        GPIO.setup(pin, GPIO.IN)
-        if GPIO.input(pin) == True:
-            response = "Pin number " + str(pin) + " is high!"
-        else:
-            response = "Pin number " + str(pin) + " is low!"
-    except:
-            response = "There was an error reading pin " + str(pin) + "."
-
-    templateData = {
-        'title' : 'Status of Pin ' + str(pin),
-        'response' : response,
-        'pinURL' : "/changePinStatus/" + str(pin)
-        }
-
-    return render_template('pin.html', **templateData)
+    # return render_template('pin.html', **templateData)
 
 if __name__ == "__main__":
     app.run(threaded=True, host='0.0.0.0', port=5000, debug=True)
