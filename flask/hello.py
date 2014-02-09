@@ -6,9 +6,9 @@ import RPi.GPIO as GPIO
 app = Flask(__name__)
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(12, GPIO.IN)
-GPIO.setup(16, GPIO.IN)
+GPIO.setup(17, GPIO.IN)
 GPIO.setup(18, GPIO.IN)
+GPIO.setup(21, GPIO.IN)
 GPIO.setup(19, GPIO.OUT)
 
 pin_19_state=False
@@ -24,8 +24,8 @@ def hello():
     # return render_template('main.html', **templateData)
     return "LiteSync"
 
-@app.route("/tresholdLoop/<int:threshold>")
-def thresholdLoop(tresholdLoop):
+@app.route("/thresholdLoop/<int:threshold>")
+def thresholdLoop(thresholdLoop):
     while(True):
         sense(threshold)
 
@@ -50,7 +50,7 @@ def sense(threshold):
 
 @app.route("/readPin")
 def readPin():
-    return "Pin 12: " + str(GPIO.input(12)) + ". Pin 16: " + str(GPIO.input(16)) + ". Pin 18: " + str(GPIO.input(18))
+    return "Pin 12: " + str(GPIO.input(17)) + ". Pin 16: " + str(GPIO.input(18)) + ". Pin 18: " + str(GPIO.input(21))
 
     # templateData = {
     #     'title' : 'Status of Pin ' + str(pin),
