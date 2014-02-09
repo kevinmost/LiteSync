@@ -23,6 +23,17 @@ def timer(seconds, pin):
     changePinStatus(pin)
     return "Pin " + str(pin) + " changed"
 
+@app.route("/sense/<int:threshold>")
+def sense(threshold):
+    level = readPin(12) + (2 * readPin(16)) + (4 * readPin(18))
+    GPIO.setup(19, GPIO.OUT)
+    if (level > threshold and threshold <= 7 and threshold >= 0):
+        GPIO.output(19, True)
+        return "Threshold was " + str(threshold) + ". Level detected was " + str(level) + "."
+    else:
+        GPIO.output(19, False)
+        return "No stop pls"
+
 @app.route("/changePinStatus/<int:pin>", methods=['GET', 'POST'])
 def changePinStatus(pin):
     try:
@@ -36,7 +47,7 @@ def changePinStatus(pin):
             GPIO.output(pin, True)
             newResponse = True
     except:
-        return "fuck you"
+        return "It didn't work"
 
     templateData = {
         'title' : 'Status of Pin ' + str(pin),
@@ -44,16 +55,22 @@ def changePinStatus(pin):
     }
     return render_template('pin.html', **templateData)
 
-@app.route("/readPin/all")
-def readPinAll():
+@app.route("/readPin/<int:pin>")
+def readPin():
+    try:
+        GPIO.setup(pin, GPIO.IN)
+        return int(GPIO.input(pin))
+
+@app.route("/readPinDebug/all")
+def readPinAllDebug():
     pin_statuses = ""
     for pin in range(1,26):
         GPIO.setup(pin, GPIO.IN)
         pin_statuses += "Pin " + str(pin) + " is " + str(GPIO.input(pin))
     return pin_statuses
 
-@app.route("/readPin/<int:pin>")
-def readPin(pin):
+@app.route("/readPinDebug/<int:pin>")
+def readPinDebug(pin):
     try:
         GPIO.setup(pin, GPIO.IN)
         if GPIO.input(pin) == True:
