@@ -14,9 +14,6 @@ def dicks():
     GPIO.setup(21, GPIO.IN)
     GPIO.setup(22, GPIO.OUT)
     global pinout_state
-    if pinout_state == None:
-        pinout_state = False
-
 
 @app.route("/")
 def hello():
@@ -49,7 +46,7 @@ def changePin():
 @app.route("/sense/<int:threshold>")
 def sense(threshold):
     dicks()
-    level = GPIO.input(12) + (2 * GPIO.input(16)) + (4 * GPIO.input(18))
+    level = GPIO.input(17) + (2 * GPIO.input(18)) + (4 * GPIO.input(21))
     if (level > threshold and threshold <= 7 and threshold >= 0):
         pinout_state = True
     else:
