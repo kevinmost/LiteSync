@@ -22,7 +22,7 @@ def readPinAll():
    pin_statuses = ""
    for i in range(1,26):
       GPIO.setup(i, GPIO.IN)
-      pin_statuses += "Pin " + str(i) + " is " + str(GPIO.input(pin)) + "\n"
+      pin_statuses += "Pin " + str(i) + " is " + str(GPIO.input(i)) + "\n"
    return pin_statuses
 
 @app.route("/readPin/<int:pin>")
