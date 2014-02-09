@@ -14,6 +14,8 @@ def dicks():
     GPIO.setup(21, GPIO.IN)
     GPIO.setup(22, GPIO.OUT)
     global pinout_state
+    if pinout_state is None:
+        pinout_state = False
 
 
 @app.route("/")
@@ -40,7 +42,6 @@ def timer(seconds):
     changePin()
     return "Pin 22 changed"
 def changePin():
-    pinout_state=False
     dicks()
     pinout_state = not pinout_state
     GPIO.output(22, pinout_state)
