@@ -40,7 +40,7 @@ def timer(seconds):
     return "Pin " + str(pin) + " changed"
 def changePin():
     dicks()
-    global pinout_state = not pinout_state
+    pinout_state = not pinout_state
     GPIO.output(22, pinout_state)
 
 @app.route("/sense/<int:threshold>")
