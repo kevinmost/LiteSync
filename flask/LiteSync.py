@@ -32,7 +32,8 @@ def timer():
 
 def changePin():
     pinout_init()
-    global pinout_state = not pinout_state
+    global pinout_state
+    pinout_state = not pinout_state
     GPIO.output(22, pinout_state)
 
 @app.route("/sense", methods=['GET', 'POST']) #Light-dependent
