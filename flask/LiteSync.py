@@ -4,8 +4,8 @@ import traceback
 import time
 import RPi.GPIO as GPIO
 
-if pinout_state is None:
-    pinout_state = False
+
+pinout_state = False
 app = Flask(__name__)
 
 def pinout_init():
@@ -14,9 +14,6 @@ def pinout_init():
     GPIO.setup(18, GPIO.IN)
     GPIO.setup(21, GPIO.IN)
     GPIO.setup(22, GPIO.OUT)
-    global pinout_state
-
-
 
 @app.route("/")
 def hello():
