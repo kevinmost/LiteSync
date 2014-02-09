@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import datetime
 import traceback
+import linesep from os
 import RPi.GPIO as GPIO
 app = Flask(__name__)
 
@@ -22,7 +23,7 @@ def readPinAll():
    pin_statuses = ""
    for i in range(1,26):
       GPIO.setup(i, GPIO.IN)
-      pin_statuses += "Pin " + str(i) + " is " + str(GPIO.input(i)) + "\n"
+      pin_statuses += "Pin " + str(i) + " is " + str(GPIO.input(i)) + linesep
    return pin_statuses
 
 @app.route("/readPin/<int:pin>")
