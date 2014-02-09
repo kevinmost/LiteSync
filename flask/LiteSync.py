@@ -3,6 +3,9 @@ import datetime
 import traceback
 import time
 import RPi.GPIO as GPIO
+
+if pinout_state is None:
+    pinout_state = False
 app = Flask(__name__)
 
 def pinout_init():
@@ -12,8 +15,7 @@ def pinout_init():
     GPIO.setup(21, GPIO.IN)
     GPIO.setup(22, GPIO.OUT)
     global pinout_state
-    if pinout_state is None:
-        pinout_state = False
+
 
 
 @app.route("/")
