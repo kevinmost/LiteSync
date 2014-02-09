@@ -13,7 +13,8 @@ def hello():
       'title' : 'HELLO!',
       'time': timeString
       }
-   return render_template('main.html', **templateData)
+   # return render_template('main.html', **templateData)
+   return "dicks"
 
 @app.route("/readPin/<pin>")
 def readPin(pin):
@@ -35,4 +36,4 @@ def readPin(pin):
 
 
 if __name__ == "__main__":
-   app.run(host='0.0.0.0', port=80, debug=True)
+   app.run(host='0.0.0.0', port=5000, debug=True)
