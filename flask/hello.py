@@ -19,8 +19,8 @@ def hello():
     return "dicks"
 
 @app.route("/tresholdLoop/<int:threshold>")
-def thresholdLoop(treshold):
-    while():
+def thresholdLoop(tresholdLoop):
+    while(True):
         sense(threshold)
 
 @app.route("/timer/<int:seconds>/<int:pin>")
