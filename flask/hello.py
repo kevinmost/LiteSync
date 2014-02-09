@@ -17,12 +17,33 @@ def hello():
    # return render_template('main.html', **templateData)
    return "dicks"
 
+@app.route("/changePinStatus/<int:pin>")
+def changePinStatus(pin):
+   try:
+      GPIO.setup(pin, GPIO.IN)
+      response = GPIO.input(pin)
+      GPIO.setup(pin, GPIO.OUT)
+      if  response == True:
+         GPIO.output(pin, False)
+         newResponse = False
+      elif response == False:
+         GPIO.output(pin, True)
+         newResponse = True
+   except:
+      return "fuck you"
+
+   templateData = {
+      'title' : 'Status of Pin ' + str(pin),
+      'response' : newResponse
+   }
+   return render_template('pin.html', **templateData)
+
 @app.route("/readPin/all")
 def readPinAll():
    pin_statuses = ""
-   for i in range(1,26):
-      GPIO.setup(i, GPIO.IN)
-      pin_statuses += "Pin " + str(i) + " is " + str(GPIO.input(i)) + "\r\n"
+   for pin in range(1,26):
+      GPIO.setup(pin, GPIO.IN)
+      pin_statuses += "Pin " + str(pin) + " is " + str(GPIO.input(pin))
    return pin_statuses
 
 @app.route("/readPin/<int:pin>")
@@ -37,7 +58,7 @@ def readPin(pin):
          response = "There was an error reading pin " + str(pin) + "."
 
    templateData = {
-      'title' : 'Status of Pin' + str(pin),
+      'title' : 'Status of Pin ' + str(pin),
       'response' : response
       }
 
