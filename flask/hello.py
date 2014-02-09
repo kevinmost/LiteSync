@@ -40,8 +40,8 @@ def timer(seconds):
     return "Pin " + str(pin) + " changed"
 def changePin():
     dicks()
-    global pinout_state = not global pinout_state
-    GPIO.output(22, global pinout_state)
+    global pinout_state = not pinout_state
+    GPIO.output(22, pinout_state)
 
 @app.route("/sense/<int:threshold>")
 def sense(threshold):
@@ -51,7 +51,7 @@ def sense(threshold):
         global pinout_state = True
     else:
         global pinout_state = False
-    GPIO.output(22, global pinout_state)
+    GPIO.output(22, pinout_state)
     return "Threshold was " + str(threshold) + ". Level detected was " + str(level) + "."
 
 @app.route("/readPin")
