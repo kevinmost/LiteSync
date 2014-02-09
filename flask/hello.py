@@ -5,11 +5,6 @@ import time
 import RPi.GPIO as GPIO
 app = Flask(__name__)
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(17, GPIO.IN)
-GPIO.setup(18, GPIO.IN)
-GPIO.setup(21, GPIO.IN)
-GPIO.setup(19, GPIO.OUT)
 
 pin_19_state=False
 
@@ -50,6 +45,11 @@ def sense(threshold):
 
 @app.route("/readPin")
 def readPin():
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(17, GPIO.IN)
+    GPIO.setup(18, GPIO.IN)
+    GPIO.setup(21, GPIO.IN)
+    GPIO.setup(19, GPIO.OUT)
     return "Pin 12: " + str(GPIO.input(17)) + ". Pin 16: " + str(GPIO.input(18)) + ". Pin 18: " + str(GPIO.input(21))
 
     # templateData = {
