@@ -17,8 +17,8 @@ def hello():
    # return render_template('main.html', **templateData)
    return "dicks"
 
-@app.route("/readPin")
-def readPin():
+@app.route("/readPin/all")
+def readPinAll():
    pin_statuses = ""
    try:
       for i in range(1,26):
