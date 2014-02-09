@@ -20,16 +20,16 @@ def hello():
 @app.route("/readPin/<int:pin>")
 def readPin(pin):
    try:
-      GPIO.setup(int(pin), GPIO.IN)
-      if GPIO.input(int(pin)) == True:
-         return "Pin " + pin + " is high"
+      GPIO.setup(pin, GPIO.IN)
+      if GPIO.input(pin) == True:
+         return "Pin " + str(pin) + " is high"
          # response = "Pin number " + pin + " is high!"
       else:
-         return "Pin " + pin + " is low"
+         return "Pin " + str(pin) + " is low"
          # response = "Pin number " + pin + " is low!"
    except:
       traceback.print_exc()
-      return "There was an error reading pin" + pin
+      return "There was an error reading pin" + str(pin)
       #response = "There was an error reading pin " + pin + "."
 
    #templateData = {
