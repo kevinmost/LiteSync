@@ -20,13 +20,10 @@ def hello():
 @app.route("/readPin/all")
 def readPinAll():
    pin_statuses = ""
-   try:
-      for i in range(1,26):
-         GPIO.setup(i, GPIO.IN)
-         pin_statuses += "Pin " + str(i) + " is " + str(GPIO.input(pin)) + "\n"
-         return pin_statuses
-   except:
-      return "Cocks"
+   for i in range(1,26):
+      GPIO.setup(i, GPIO.IN)
+      pin_statuses += "Pin " + str(i) + " is " + str(GPIO.input(pin)) + "\n"
+   return pin_statuses
 
 @app.route("/readPin/<int:pin>")
 def readPin(pin):
