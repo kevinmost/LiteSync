@@ -26,16 +26,7 @@ def hello():
     # return render_template('main.html', **templateData)
     return "LiteSync"
 
-@app.route("/dynamicThresh", methods = ['GET', 'POST'])
-def dynamicThresh(): 
-    templateData = {
-        'title' : 'Status of Pin ' + str(pin),
-        'response' : newResponse
-    }
-
-    return render_template('pin.html', **templateData)
-
-#@app.route("/thresholdLoop/<int:threshold>")
+@app.route("/thresholdLoop/<int:threshold>")
 def thresholdLoop(threshold):
     pinout_init()
     while(True):
