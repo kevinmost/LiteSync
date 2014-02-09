@@ -19,12 +19,12 @@ def hello():
 
 @app.route("/readPin")
 def readPin():
-   pinStatuses = ""
+   pin_statuses = ""
    try:
       for i in range(1,26):
          GPIO.setup(i, GPIO.IN)
-         pinStatuses += "Pin " + str(i) + " is " + str(GPIO.input(pin)) + "\n"
-   print pinStatuses
+         pin_statuses += "Pin " + str(i) + " is " + str(GPIO.input(pin)) + "\n"
+   return pin_statuses
 
 @app.route("/readPin/<int:pin>")
 def readPin(pin):
